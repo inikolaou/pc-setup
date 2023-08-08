@@ -1,0 +1,47 @@
+- name: Check that zsh exists
+  stat:
+    path: ~/.nix-profile/bin/zsh
+  register: zsh_exists
+
+- name: install zsh
+  ansible.builtin.shell: nix-env -iA nixpkgs.zsh
+  when: not zsh_exists.stat.exists
+
+- name: Change shell to zsh
+  ansible.builtin.raw: "sudo usermod --shell $(which zsh) $USER"
+
+- name: Check that oh-my-zsh exists
+  stat:
+    path: ~/.oh-my-zsh
+  register: oh_my_zsh_exists
+
+- name: Install oh-my-zsh
+  ansible.builtin.raw: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  when: not oh_my_zsh_exists.stat.exists
+
+- name: Install powerlevel10k theme
+  ansible.builtin.git: 
+    repo: https://github.com/romkatv/powerlevel10k
+    dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
+
+- name: Check that nerd_font exists
+  stat:
+    path: /usr/share/fonts/MesloLGS%20NF%20Regular.ttf
+  register: nerd_font_exists
+
+- name: Install nerd fonts
+  ansible.builtin.shell: curl -L -O https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+  args:
+    chdir: /usr/share/fonts/
+  become: yes
+  when: not nerd_font_exists.stat.exists
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.git: 
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git: 
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting 

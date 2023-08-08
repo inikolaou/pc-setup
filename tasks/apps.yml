@@ -1,0 +1,17 @@
+- name: Check that librewolf exists
+  stat:
+    path: ~/.nix-profile/bin/librewolf
+  register: librewolf_exists
+
+- name: Install librewolf
+  ansible.builtin.shell: "nix-env -iA nixpkgs.librewolf"
+  when: not librewolf_exists.stat.exists
+
+- name: Check that vscodium exists
+  stat:
+    path: ~/.nix-profile/bin/codium
+  register: vscodium_exists
+
+- name: Install vscodium
+  ansible.builtin.shell: "nix-env -iA nixpkgs.vscodium"
+  when: not vscodium_exists.stat.exists

@@ -1,0 +1,19 @@
+- name: Check that stow exists
+  stat:
+    path: ~/.nix-profile/bin/stow
+  register: stow_exists
+
+- name: Install stow
+  ansible.builtin.shell: "nix-env -iA nixpkgs.stow"
+  when: not stow_exists.stat.exists
+
+- name: Clone dotfiles
+  ansible.builtin.git: 
+    repo: https://github.com/inikolaou/.dotfiles
+    dest: ~/.dotfiles
+
+- name: Stow dotfiles
+  ansible.builtin.shell: cd ~/.dotfiles && stow --restow */
+
+- name: Apply gnome terminal profile
+  ansible.builtin.shell: dconf load /org/gnome/terminal/legacy/profiles:/ < ~/.dotfiles/gnome-terminal-profiles.dconf

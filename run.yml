@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+
+  tasks:
+    - import_tasks: tasks/zsh.yml
+    - import_tasks: tasks/apps.yml
+    - import_tasks: tasks/essential.yml
+    - import_tasks: tasks/docker.yml
+    - import_tasks: tasks/neovim.yml
+    - import_tasks: tasks/dotfiles.yml

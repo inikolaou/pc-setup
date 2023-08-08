@@ -1,0 +1,17 @@
+- name: Check that ripgrep exists
+  stat:
+    path: ~/.nix-profile/bin/rg
+  register: ripgrep_exists
+
+- name: Install ripgrep
+  ansible.builtin.shell: "nix-env -iA nixpkgs.ripgrep"
+  when: not ripgrep_exists.stat.exists
+
+- name: Check that neovim exists
+  stat:
+    path: ~/.nix-profile/bin/nvim
+  register: neovim_exists
+
+- name: Install neovim
+  ansible.builtin.shell: "nix-env -iA nixpkgs.neovim"
+  when: not neovim_exists.stat.exists

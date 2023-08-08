@@ -1,0 +1,16 @@
+- name: Check that docker exists
+  stat:
+    path: ~/.nix-profile/bin/docker
+  register: docker_exists
+
+- name: install docker
+  ansible.builtin.shell: nix-env -iA nixpkgs.docker
+  when: not docker_exists.stat.exists
+
+- name: create docker group if not exists
+  ansible.builtin.group:
+    name: docker
+  become: yes
+
+- name: add user to docker group
+  ansible.builtin.shell: sudo usermod -aG docker $USER
