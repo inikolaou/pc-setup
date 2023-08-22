@@ -8,15 +8,33 @@
   stat:
     path: ~/.nvm
   register: nvm_exists
+  tags: nvm
 
 - name: Install nvm
-  ansible.builtin.shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.4/install.sh | bash
-  when: not nvm_exists.stat.exists
-
-- name: Install node 
-  ansible.builtin.shell: source ~/.zshrc && nvm install --lts
+  become: no
+  ansible.builtin.shell: >
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.39.1/install.sh | bash
   args:
-    executable: /bin/bash
+    executable: "{{ ansible_env.HOME }}/.nix-profile/bin/zsh"
+    chdir: "$HOME"
+    creates: "$HOME/.nvm/nvm.sh"
+  when: not nvm_exists.stat.exists
+  tags: nvm
+
+- name: Check that node exists
+  stat:
+    path: ~/.nvm/versions/node
+  register: node_exists
+  tags: node
+
+- name: Install node
+  become: no
+  ansible.builtin.shell: . {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install --lts
+  args:
+    executable: "{{ ansible_env.HOME }}/.nix-profile/bin/zsh"
+    chdir: "{{ ansible_env.HOME }}"
+  when: not node_exists.stat.exists
+  tags: node
 
 - name: Check that vim exists
   stat:

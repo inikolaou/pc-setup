@@ -1,0 +1,26 @@
+- name: Check that kubectl exists
+  stat:
+    path: ~/.nix-profile/bin/kubectl
+  register: kubectl_exists
+
+- name: Install kubectl
+  ansible.builtin.shell: "nix-env -iA nixpkgs.kubernetes"
+  when: not kubectl_exists.stat.exists
+
+- name: Check that kind exists
+  stat:
+    path: ~/.nix-profile/bin/kind
+  register: kind_exists
+
+- name: Install kind
+  ansible.builtin.shell: "nix-env -iA nixpkgs.kind"
+  when: not kind_exists.stat.exists
+
+- name: Check that minikube exists
+  stat:
+    path: ~/.nix-profile/bin/minikube
+  register: minikube_exists
+
+- name: Install minikube
+  ansible.builtin.shell: "nix-env -iA nixpkgs.minikube"
+  when: not minikube_exists.stat.exists
