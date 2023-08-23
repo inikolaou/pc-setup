@@ -1,0 +1,19 @@
+- name: Check that tmux exists
+  stat:
+    path: ~/.nix-profile/bin/tmux
+  register: tmux_exists
+
+- name: Install tmux
+  ansible.builtin.shell: "nix-env -iA nixpkgs.tmux"
+  when: not tmux_exists.stat.exists
+
+- name: Install tmux plugin manager
+  ansible.builtin.git: 
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+
+- name: Install xclip package
+  ansible.builtin.apt:
+    name: xclip
+  become: yes
+  when: ansible_facts['distribution'] == "Ubuntu"

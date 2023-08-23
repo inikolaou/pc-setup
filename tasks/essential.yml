@@ -36,24 +36,6 @@
   when: not node_exists.stat.exists
   tags: node
 
-- name: Check that vim exists
-  stat:
-    path: ~/.nix-profile/bin/vim
-  register: vim_exists
-
-- name: Install vim
-  ansible.builtin.shell: "nix-env -iA nixpkgs.vim"
-  when: not vim_exists.stat.exists
-
-- name: Check that tmux exists
-  stat:
-    path: ~/.nix-profile/bin/tmux
-  register: tmux_exists
-
-- name: Install tmux
-  ansible.builtin.shell: "nix-env -iA nixpkgs.tmux"
-  when: not tmux_exists.stat.exists
-
 - name: Check that neofetch exists
   stat:
     path: ~/.nix-profile/bin/neofetch
