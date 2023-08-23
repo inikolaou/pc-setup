@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/inikolaou/pc-setup">
-    <img src="images/logo.jpg" alt="Logo" width="180" height="180">
+    <img src="images/logo.png" alt="Logo" width="180" height="180">
   </a>
 
 <h3 align="center">Unix PC Setup</h3>
