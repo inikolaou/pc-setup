@@ -130,7 +130,8 @@ To get started you need to have a pc with a unix operating system. Some tasks in
 3. Log out of the system and log back in
 4. Execute the remaining tasks based on your preferences by using specific [tags](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html#selecting-or-skipping-tags-when-you-run-a-playbook)
     ```sh
-   ansible-playbook pc-setup/run.yml -K --tags "dev-env"
+   ansible-playbook pc-setup/run.yml -K # you can specify no tag if you want to download all the software I have included in the tasks folder
+   ansible-playbook pc-setup/run.yml -K --tags "dev-env" # this is the tag you should use if you're coming from my .dotfiles repository
    ```
 5. Reboot your system
 
