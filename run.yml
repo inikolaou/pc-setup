@@ -3,11 +3,26 @@
 
   tasks:
     - import_tasks: tasks/zsh.yml
-      tags: zsh
+      tags: 
+        - zsh
+        - dev-env
     - import_tasks: tasks/apps.yml
+      tags: apps
     - import_tasks: tasks/essential.yml
+      tags: essential
     - import_tasks: tasks/neovim.yml
+      tags: 
+        - neovim
+        - dev-env
     - import_tasks: tasks/tmux.yml
+      tags: 
+        - tmux
+        - dev-env
     - import_tasks: tasks/docker.yml
+      tags: docker
     - import_tasks: tasks/kubernetes.yml
+      tags: kubernetes
     - import_tasks: tasks/dotfiles.yml
+      tags: 
+        - dotfiles
+        - dev-env

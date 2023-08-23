@@ -12,6 +12,61 @@
     repo: https://github.com/inikolaou/.dotfiles
     dest: ~/.dotfiles
 
+- name: Check if .gitconfig is symlink
+  stat:
+    path: ~/.gitconfig
+  register: gitconfig_exists
+
+- name: Delete .gitconfig if it isn't a symlink
+  ansible.builtin.file:
+    path: ~/.gitconfig
+    state: absent
+  when: gitconfig_exists.stat.exists and not gitconfig_exists.stat.islnk
+
+- name: Check if .tmux.conf is symlink
+  stat:
+    path: ~/.tmux.conf
+  register: tmuxconf_exists
+
+- name: Delete .tmux.conf if it isn't a symlink
+  ansible.builtin.file:
+    path: ~/.tmux.conf
+    state: absent
+  when: tmuxconf_exists.stat.exists and not tmuxconf_exists.stat.islnk
+
+- name: Check if .zshrc is symlink
+  stat:
+    path: ~/.zshrc
+  register: zshrc_exists
+
+- name: Delete .zshrc if it isn't a symlink
+  ansible.builtin.file:
+    path: ~/.zshrc
+    state: absent
+  when: zshrc_exists.stat.exists and not zshrc_exists.stat.islnk
+
+- name: Check if .p10k.zsh is symlink
+  stat:
+    path: ~/.p10k.zsh
+  register: p10kzsh_exists
+
+- name: Delete .p10k.zsh if it isn't a symlink
+  ansible.builtin.file:
+    path: ~/.p10k.zsh
+    state: absent
+  when: p10kzsh_exists.stat.exists and not p10kzsh_exists.stat.islnk
+
+- name: Check if .config/nvim is symlink
+  stat:
+    path: ~/.config/nvim
+  register: confignvim_exists
+
+- name: Delete .config/nvim if it isn't a symlink
+  ansible.builtin.file:
+    path: ~/.config/nvim
+    state: absent
+  when: confignvim_exists.stat.exists and not confignvim_exists.stat.islnk
+
 - name: Stow dotfiles
   ansible.builtin.shell: cd ~/.dotfiles && stow --restow */
 
