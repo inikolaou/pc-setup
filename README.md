@@ -100,7 +100,7 @@ To get started you need to have a pc with a unix operating system. Some tasks in
  All of the commands below were executed on ubuntu 22.04. Execute them based on your specific operating system and using your preferred package manager.
 * First update and upgrade your package manager
   ```sh
-  sudo apt update && apt upgrade
+  sudo apt update && sudo apt upgrade
   ```
 * Make sure you have installed git and curl 
   ```sh
@@ -193,7 +193,7 @@ Project Link: [https://github.com/inikolaou/pc-setup](https://github.com/inikola
 [issues-shield]: https://img.shields.io/github/issues/inikolaou/pc-setup.svg?style=for-the-badge
 [issues-url]: https://github.com/inikolaou/pc-setup/issues
 [license-shield]: https://img.shields.io/github/license/inikolaou/pc-setup.svg?style=for-the-badge
-[license-url]: https://github.com/inikolaou/pc-setup/blob/master/LICENSE.txt
+[license-url]: https://github.com/inikolaou/pc-setup/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/nikolaou-ioannis
 [Ansible.com]: https://img.shields.io/badge/Ansible-123?style=for-the-badge&logo=ansible&logoColor=white
