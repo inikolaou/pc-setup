@@ -93,11 +93,11 @@ This project is about creating a reproducable environment with the help of an an
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get started you need to have a pc with a unix operating system. Some tasks in the playbook are specific to ubuntu operating systems. If you are using another operating system you can submit a pull request with the same task modified so it works on your operating system.
+To get started you need to have a pc with a unix operating system. Some tasks in the playbook are specific to the ubuntu distribution of linux. If you are using another distribution of linux or another operating system you can submit a pull request of the same task with the modified [when](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html#basic-conditionals-with-when) condition based on your [operating system](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html#commonly-used-facts).
 
 ### Prerequisites
 
- All of the commands below were executed on ubuntu 22.04. Execute them based on your specific operating system and using your preffered package manager.
+ All of the commands below were executed on ubuntu 22.04. Execute them based on your specific operating system and using your preferred package manager.
 * First update and upgrade your package manager
   ```sh
   sudo apt update && apt upgrade
