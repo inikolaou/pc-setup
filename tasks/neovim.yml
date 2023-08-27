@@ -9,9 +9,17 @@
 
 - name: Check that neovim exists
   stat:
-    path: ~/.nix-profile/bin/nvim
+    path: ~/Downloads/nvim-linux64/bin/nvim
   register: neovim_exists
 
+- name: Download neovim tar
+  ansible.builtin.shell: wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
+  args:
+    chdir: ~/Downloads
+  when: not not neovim_exists.stat.exists
+
 - name: Install neovim
-  ansible.builtin.shell: "nix-env -iA nixpkgs.neovim"
-  when: not neovim_exists.stat.exists
+  ansible.builtin.shell: tar xzvf nvim-linux64.tar.gz
+  args:
+    chdir: ~/Downloads
+  when: not not neovim_exists.stat.exists
