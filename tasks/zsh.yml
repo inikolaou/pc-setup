@@ -20,7 +20,7 @@
   when: not oh_my_zsh_exists.stat.exists
 
 - name: Install powerlevel10k theme
-  ansible.builtin.git: 
+  ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k
     dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
 
@@ -37,11 +37,11 @@
   when: not nerd_font_exists.stat.exists
 
 - name: Install zsh-autosuggestions
-  ansible.builtin.git: 
+  ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-autosuggestions
     dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 
 - name: Install zsh-syntax-highlighting
-  ansible.builtin.git: 
+  ansible.builtin.git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting
-    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting 
+    dest: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting

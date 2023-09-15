@@ -11,7 +11,7 @@
   stat:
     path: ~/.nvm
   register: nvm_exists
-  tags: 
+  tags:
     - nvm
     - neovim
     - dev-env
@@ -25,7 +25,7 @@
     chdir: "$HOME"
     creates: "$HOME/.nvm/nvm.sh"
   when: not nvm_exists.stat.exists
-  tags: 
+  tags:
     - nvm
     - neovim
     - dev-env
@@ -34,7 +34,7 @@
   stat:
     path: ~/.nvm/versions/node
   register: node_exists
-  tags: 
+  tags:
     - node
     - neovim
     - dev-env
@@ -46,9 +46,48 @@
     executable: "{{ ansible_env.HOME }}/.nix-profile/bin/zsh"
     chdir: "{{ ansible_env.HOME }}"
   when: not node_exists.stat.exists
-  tags: 
+  tags:
     - node
     - neovim
+    - dev-env
+
+- name: Check that go directory exists
+  stat:
+    path: /usr/local/go
+  register: go_exists
+  tags:
+    - go
+    - dev-env
+
+- name: Unarchive a file that needs to be downloaded (added in 2.0)
+  ansible.builtin.unarchive:
+    src: https://go.dev/dl/go1.21.1.linux-amd64.tar.gz
+    dest: /usr/local/
+    remote_src: yes
+  become: yes
+  when: not go_exists.stat.exists
+  tags:
+    - go
+    - dev-env
+
+- name: Delete tar
+  ansible.builtin.file:
+    path: /usr/local/go1.21.1.linux-amd64.tar.gz
+    state: absent
+  become: yes
+  when: not go_exists.stat.exists
+  tags:
+    - go
+    - dev-env
+
+- name: Delete logs
+  ansible.builtin.file:
+    path: /usr/local/wget-log
+    state: absent
+  become: yes
+  when: not go_exists.stat.exists
+  tags:
+    - go
     - dev-env
 
 - name: Check that neofetch exists

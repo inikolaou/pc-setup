@@ -8,7 +8,7 @@
   when: not tmux_exists.stat.exists
 
 - name: Install tmux plugin manager
-  ansible.builtin.git: 
+  ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 

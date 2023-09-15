@@ -8,7 +8,7 @@
   when: not stow_exists.stat.exists
 
 - name: Clone dotfiles
-  ansible.builtin.git: 
+  ansible.builtin.git:
     repo: https://github.com/inikolaou/.dotfiles
     dest: ~/.dotfiles
 
