@@ -53,7 +53,7 @@
 
 - name: Check that go directory exists
   stat:
-    path: /usr/local/go
+    path: "{{ ansible_env.HOME }}/go"
   register: go_exists
   tags:
     - go
@@ -62,9 +62,8 @@
 - name: Unarchive a file that needs to be downloaded (added in 2.0)
   ansible.builtin.unarchive:
     src: https://go.dev/dl/go1.21.1.linux-amd64.tar.gz
-    dest: /usr/local/
+    dest: "{{ ansible_env.HOME }}"
     remote_src: yes
-  become: yes
   when: not go_exists.stat.exists
   tags:
     - go
@@ -72,9 +71,8 @@
 
 - name: Delete tar
   ansible.builtin.file:
-    path: /usr/local/go1.21.1.linux-amd64.tar.gz
+    path: "{{ ansible_env.HOME }}/go1.21.1.linux-amd64.tar.gz"
     state: absent
-  become: yes
   when: not go_exists.stat.exists
   tags:
     - go
@@ -82,13 +80,19 @@
 
 - name: Delete logs
   ansible.builtin.file:
-    path: /usr/local/wget-log
+    path: "{{ ansible_env.HOME }}/wget-log"
     state: absent
-  become: yes
   when: not go_exists.stat.exists
   tags:
     - go
     - dev-env
+
+- name: Install go packages for autoformatting
+  ansible.builtin.shell: "go install github.com/incu6us/goimports-reviser/v3@latest && go install mvdan.cc/gofumpt@latest && go install github.com/segmentio/golines@latest"
+  tags:
+    - go
+    - dev-env
+    - neovim
 
 - name: Check that neofetch exists
   stat:
