@@ -14,3 +14,12 @@
 
 - name: add user to docker group
   ansible.builtin.shell: sudo usermod -aG docker $USER
+
+- name: Check that docker-compose exists
+  stat:
+    path: ~/.nix-profile/bin/docker-compose
+  register: docker_compose_exists
+
+- name: install docker-compose
+  ansible.builtin.shell: nix-env -iA nixpkgs.docker-compose
+  when: not docker_compose_exists.stat.exists
